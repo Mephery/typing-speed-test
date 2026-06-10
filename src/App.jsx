@@ -156,7 +156,7 @@ function App() {
               <circle cx="12" cy="12" r="3" />
               <path d="M12 2v2M12 20v2M2 12h2M20 12h2" />
             </svg>
-            <span className="brand-title">Fast and keyrious</span>
+            <span className="brand-title">Fast & keyrious</span>
           </div>
 
           <div className="record-display">
