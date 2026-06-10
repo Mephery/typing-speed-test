@@ -11,8 +11,20 @@ export const words = [
   "ordinateur", "code", "logique", "reseau", "serveur", "algorithme",
   "fonction", "clavier", "souris", "programmation", "python", "soleil",
   "pluie", "marguerite", "Perle", "orchidée", "enfant", "neige", "doré",
-  "fragment", "pétal", "attention", "problème", "quantité", "booléen",
-  "chanson", "aléatoire", "partition", "étoile", "tableau", "création"
+  "fragment", "pétale", "attention", "problème", "quantité", "booléen",
+  "chanson", "aléatoire", "partition", "étoile", "tableau", "création",
+  "compilateur", "variable", "boucle", "requête", "navigateur", "interface", 
+  "framework", "terminal", "script", "sécurité", "développeur", "ingénieur", 
+  "virtuel", "domaine", "infrastructure", "base", "données", "branche", "commit",
+  "push", "capsule", "console", "système", "mémoire", "processeur", "pixel",
+  "livre", "poésie", "histoire", "lumière", "ombre", "silence", "horizon", 
+  "fenêtre", "voyage", "esprit", "chemin", "temps", "monde", "nature", "pensée", 
+  "phrase", "mot", "page", "plume", "encre", "lecture", "écriture", "roman", 
+  "théâtre", "univers", "galaxie", "mystère", "savoir", "curiosité", "apprentissage",
+  "futur", "passé", "instant", "partenaire", "guerrière", "thérapie", "binaire",
+  "travail", "maison", "café", "matin", "soir", "journée", "semaine", "équipe",
+  "projet", "succès", "erreur", "logement", "route", "musique", "regard", "voix",
+  "liberté", "choix", "force", "valeur", "source", "cible", "record", "vitesse"
 ];
 
 // Le jardin secret littéraire

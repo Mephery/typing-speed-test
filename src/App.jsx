@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { sentences, quotes } from './text';
+import { sentences, quotes, words } from './text';
 import './App.css';
 
 function App() {
@@ -14,6 +14,7 @@ function App() {
   const [hasPunctuation, setHasPunctuation] = useState(false);
   const [hasNumbers, setHasNumbers] = useState(false);
   const [gameMode, setGameMode] = useState('quotes');
+  const [wordLimit, setWordLimit] = useState(15);
 
   const [highScore, setHighScore] = useState(() => {
     const savedScore = localStorage.getItem('bestWPM');
@@ -43,20 +44,47 @@ function App() {
     setUserInput(valeur);
   };
 
-  const handleRestart = () => {
-    const randomIndex = Math.floor(Math.random() * sentences.length);
-
-    setTargetText(sentences[randomIndex]);
+  const handleRestart = (mode = gameMode, punct = hasPunctuation, num = hasNumbers, limit = wordLimit) => {
     setUserInput("");
     setSecondsElapsed(0);
     setStatus('waiting');
 
-    if (gameMode === 'quotes') {
+    // Le mode citations
+    if (mode === 'quotes') {
       const randomIndex = Math.floor(Math.random() * quotes.length); 
-      setTargetText(quotes[randomIndex])
+      setTargetText(quotes[randomIndex]);
     } else {
-      const randomIndex = Math.floor(Math.random() * sentences.length);
-      setTargetText(sentences[randomIndex]);
+      let generatedWords = [];
+      const wordCount = limit;
+
+      // Piocher quinze mots si on n'est pas en mode citation
+      for (let i = 0; i < wordCount; i++) {
+        let randomWord = words[Math.floor(Math.random() * words.length)];
+        
+        if (num && Math.random() < 0.2) {
+          randomWord = Math.floor(Math.random() * 100).toString();
+        }
+
+        generatedWords.push(randomWord);
+      }
+
+      // Une fois qu'on a nos 15 mots, SI la ponctuation est active, on applique le filtre
+      if (punct) {
+        generatedWords = generatedWords.map((word, index) => {
+          if (index === 0) {
+            return word.charAt(0).toUpperCase() + word.slice(1);
+          }
+          if (index === generatedWords.length - 1) {
+            return word + ".";
+          }
+          if (Math.random() < 0.15) {
+            return word + ",";
+          }
+          return word;
+        });
+      }
+
+      setTargetText(generatedWords.join(" "));
     }
   };
 
@@ -123,10 +151,24 @@ function App() {
     <div className={`app-container ${previewTheme || theme}`}>
         <header className="game-header">
           <div className="logo-section">
-            <h1>Typing Speed Test</h1>
+            <svg className="banger-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="4" />
+              <circle cx="12" cy="12" r="3" />
+              <path d="M12 2v2M12 20v2M2 12h2M20 12h2" />
+            </svg>
+            <span className="brand-title">Fast and keyrious</span>
           </div>
 
-          <div><p>🏆 Record : {highScore} wpm</p></div>
+          <div className="record-display">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="trophy-icon">
+              <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
+              <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
+              <path d="M4 22h16" />
+              <path d="M10 14.66V17c0 .55-.45 1-1 1H4v2h16v-2h-5c-.55 0-1-.45-1-1v-2.34" />
+              <path d="M12 2a6 6 0 0 1 6 6v3.5c0 1.62-1.03 3-2.45 3.54L12 17l-3.55-1.96A4 4 0 0 1 6 11.5V8a6 6 0 0 1 6-6z" />
+            </svg>
+            <span> Record : {highScore} wpm</span>
+          </div>
 
           <div className="settings-section">
             
@@ -217,27 +259,63 @@ function App() {
 
         <div className="options-bar" onClick={(e) => e.stopPropagation()}>
           <button 
-            onClick={() => { setHasPunctuation(!hasPunctuation); inputRef.current?.focus(); }} 
-            className={`mode-btn ${hasPunctuation ? 'active' : ''}`}
+            onClick={() => { 
+              const nextPunct = !hasPunctuation;
+              setHasPunctuation(nextPunct); 
+              setGameMode('words');
+              handleRestart('words', nextPunct, hasNumbers); 
+              inputRef.current?.focus(); 
+            }} 
+            className={`mode-btn ${gameMode === 'words' && hasPunctuation ? 'active' : ''}`}
           >
             ! - ponctuation
           </button>
           
           <button 
-            onClick={() => { setHasNumbers(!hasNumbers); inputRef.current?.focus(); }} 
-            className={`mode-btn ${hasNumbers ? 'active' : ''}`}
+            onClick={() => { 
+              const nextNum = !hasNumbers;
+              setHasNumbers(nextNum); 
+              setGameMode('words');
+              handleRestart('words', hasPunctuation, nextNum); 
+              inputRef.current?.focus(); 
+            }} 
+            className={`mode-btn ${gameMode === 'words' && hasNumbers ? 'active' : ''}`}
           >
             42 - nombres
           </button>
 
+          <div className="divider"></div>
+          {gameMode === 'words' ? (
+            <>
+              {[15, 30, 50].map((value) => (
+                <button
+                  key={value}
+                  onClick={() => {
+                    setWordLimit(value);
+                    handleRestart('words', hasPunctuation, hasNumbers, value);
+                    inputRef.current?.focus();
+                  }}
+                  className={`mode-btn ${wordLimit === value ? 'active' : ''}`}
+                >
+                  {value}
+                </button>
+              ))}
+            </>
+          ) : (
+            <span className="mode-btn disabled">longueur fixe</span>
+          )}
+
+          <div className="divider"></div>
+
           <button 
             onClick={() => { 
               setGameMode('quotes'); 
-              handleRestart('quotes');
+              handleRestart('quotes'); 
+              inputRef.current?.focus(); 
             }} 
             className={`mode-btn ${gameMode === 'quotes' ? 'active' : ''}`}
           >
-            citation
+            "citation"
           </button>
         </div>
 

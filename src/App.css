@@ -20,6 +20,47 @@
 }
 
 /* --- HEADER --- */
+/* Section Logo */
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Le titre stylé */
+.brand-title {
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 18px;
+  background: linear-gradient(90deg, var(--text-typed) 0%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* L'animation banger du logo */
+.banger-logo {
+  width: 24px;
+  height: 24px;
+  color: var(--accent);
+  animation: logoGlowSpin 8s infinite linear;
+}
+
+@keyframes logoGlowSpin {
+  0% {
+    transform: rotate(0deg);
+    filter: drop-shadow(0 0 2px var(--accent));
+  }
+  50% {
+    filter: drop-shadow(0 0 12px var(--accent));
+  }
+  100% {
+    transform: rotate(360deg);
+    filter: drop-shadow(0 0 2px var(--accent));
+  }
+}
+
 .game-header {
   display: flex;
   justify-content: space-between;
@@ -180,6 +221,17 @@
   color: var(--text-future);
 }
 
+.text-container span {
+  opacity: 0.5;
+  transition: opacity 0.15s ease;
+}
+
+.text-container span.cursor,
+.text-container span.correct,
+.text-container span.incorrect {
+  opacity: 1;
+}
+
 span.correct {
   color: var(--text-typed);
 }
@@ -198,6 +250,19 @@ span.cursor {
 
 @keyframes blink {
   50% { border-color: transparent; }
+}
+
+.divider {
+  width: 1px;
+  background-color: var(--text-future);
+  opacity: 0.3;
+  margin: 4px 8px;
+}
+
+.mode-btn.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  font-style: italic;
 }
 
 .hidden-input {
