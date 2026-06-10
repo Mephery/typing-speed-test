@@ -1,0 +1,250 @@
+.app-container {
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--bg);
+  color: var(--text-typed);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+#center {
+  max-width: 1000px;
+  width: 100%;
+  margin: auto;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* --- HEADER --- */
+.game-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 16px 32px;
+}
+
+.game-header h1 {
+  font-size: 20px;
+  color: var(--text-future);
+  margin: 0;
+  opacity: 0.6;
+}
+
+.theme-selector-container {
+  position: relative;
+}
+
+/* --- DROPDOWN THEMES --- */
+.theme-dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  background-color: var(--bg);
+  border: 1px solid var(--text-future);
+  border-radius: 30px;
+  padding: 6px 12px;
+  display: flex;
+  flex-direction: row; 
+  gap: 10px;
+  z-index: 10;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  transition: all 0.2s ease;
+}
+
+.theme-dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: block;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease;
+}
+
+/* Configuration des couleurs de chaque mini-palette (Fond / Accent) */
+.dot-matrix {
+  background: linear-gradient(135deg, #1e1e24 50%, #22c55e 50%);
+}
+
+.dot-serika {
+  background: linear-gradient(135deg, #323437 50%, #e2b714 50%);
+}
+
+.dot-parchment {
+  background: linear-gradient(135deg, #f4edd8 50%, #a96b56 50%);
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+.dot-coffee {
+  background: linear-gradient(135deg, #3c2a21 50%, #ac9c8d 50%);
+}
+
+/* Ajustement du bouton du dropdown pour centrer la pastille */
+.theme-dropdown button {
+  background: transparent;
+  border: none;
+  padding: 6px;
+  cursor: pointer;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+}
+
+.theme-dropdown button:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.theme-dropdown button:hover .theme-dot {
+  transform: scale(1.1);
+}
+
+/* CHOIX DES OPTIONS DE TEXTE */
+.options-bar {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  background-color: rgba(0, 0, 0, 0.15);
+  padding: 8px 24px;
+  border-radius: 8px;
+  margin: 0 auto;
+  width: fit-content;
+}
+
+.mode-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-future);
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 4px 8px;
+  transition: color 0.2s ease;
+}
+
+.mode-btn:hover {
+  color: var(--text-typed);
+}
+
+.mode-btn.active {
+  color: var(--accent);
+  font-weight: bold;
+}
+
+/* --- BUTTONS --- */
+.icon-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-future);
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 6px;
+  transition: color 0.2s, background-color 0.2s, transform 0.2s;
+}
+
+.icon-btn:hover {
+  color: var(--accent);
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.restart-action-btn {
+  margin: 20px auto 0 auto;
+  display: block;
+}
+
+.restart-action-btn:hover {
+  transform: rotate(180deg);
+}
+
+.chrono-display {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 24px;
+  color: var(--accent);
+  height: 30px;
+  text-align: left;
+  width: 100%;
+}
+
+.text-container {
+  font-size: 28px;
+  font-family: 'Courier New', Courier, monospace;
+  line-height: 1.8;
+  letter-spacing: 1px;
+  text-align: left;
+  color: var(--text-future);
+}
+
+span.correct {
+  color: var(--text-typed);
+}
+
+span.incorrect {
+  color: #f87171;
+  background-color: rgba(248, 113, 113, 0.1);
+  border-radius: 2px;
+}
+
+span.cursor {
+  border-left: 3px solid var(--accent);
+  box-shadow: 0 0 8px var(--accent);
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  50% { border-color: transparent; }
+}
+
+.hidden-input {
+  position: absolute;
+  opacity: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* RÉSULTATS */
+.results-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 48px;
+  margin-top: 40px;
+  animation: fadeIn 0.4s ease-out;
+  width: 100%;
+}
+
+.stats-grid {
+  display: flex;
+  gap: 64px;
+}
+
+.stat-box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.stat-label {
+  font-size: 14px;
+  color: var(--text-future);
+  text-transform: lowercase;
+  letter-spacing: 1px;
+}
+
+.stat-value {
+  font-size: 64px;
+  font-weight: bold;
+  color: var(--accent);
+  font-family: 'Courier New', Courier, monospace;
+  line-height: 1.1;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

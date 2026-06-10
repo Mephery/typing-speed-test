@@ -1,0 +1,48 @@
+
+/*THEMES*/
+
+/* Thème Matrix (par défaut) */
+.matrix {
+  --bg: #1e1e24;
+  --text-future: #3a3b40;
+  --text-typed: #d1d0c5;
+  --accent: #22c55e;
+}
+
+/* Thème Serika */
+.serika {
+  --bg: #323437;
+  --text-future: #646669;
+  --text-typed: #d1d0c5;
+  --accent: #e2b714;
+}
+
+/* Thème Parchment */
+.parchment {
+  --bg: #f4edd8;
+  --text-future: #b8b3a0;
+  --text-typed: #433f38;
+  --accent: #a96b56;
+}
+
+/* Thème Café */
+.coffee {
+  --bg: #3c2a21;
+  --text-future: #6b5344;
+  --text-typed: #d6ccbe;
+  --accent: #ac9c8d;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#root {
+  width: 100%;
+}
