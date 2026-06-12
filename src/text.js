@@ -1,3 +1,4 @@
+// Les phrases au cas où
 export const sentences = [
   "Le code informatique est un art de la logique.",
   "La cybersécurité demande une vigilance de tous les instants.",
@@ -27,7 +28,7 @@ export const words = [
   "liberté", "choix", "force", "valeur", "source", "cible", "record", "vitesse"
 ];
 
-// Le jardin secret littéraire
+// Le jardin secret littéraire, pour les gens cultivés
 export const quotes = [
   "On ne fait rien de grand sans de grands hommes, et ceux-ci le sont pour l’avoir voulu.", // Chateaubriand
   "Le passé, l’avenir, ces deux moitiés de vie dont l’une dit jamais et l’autre dit toujours.", // Lamartine

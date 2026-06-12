@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { sentences, quotes, words } from './text';
 import './App.css';
 
+// Mes useStates
 function App() {
   const [status, setStatus] = useState('waiting');
   const [targetText, setTargetText] = useState(sentences[0]);
@@ -16,6 +17,7 @@ function App() {
   const [gameMode, setGameMode] = useState('quotes');
   const [wordLimit, setWordLimit] = useState(15);
 
+  // Récupération du high score depuis le localStorage
   const [highScore, setHighScore] = useState(() => {
     const savedScore = localStorage.getItem('bestWPM');
     return savedScore ? Number(savedScore) : 0;
@@ -23,6 +25,7 @@ function App() {
 
   const inputRef = useRef(null);
 
+  // Gestion de la saisie utilisateur
   const handleChange = (e) => {
     const valeur = e.target.value
 
@@ -44,6 +47,7 @@ function App() {
     setUserInput(valeur);
   };
 
+  // Fonction de réinitialisation du jeu, avec possibilité de changer les paramètres à la volée
   const handleRestart = (mode = gameMode, punct = hasPunctuation, num = hasNumbers, limit = wordLimit) => {
     setUserInput("");
     setSecondsElapsed(0);
@@ -88,7 +92,7 @@ function App() {
     }
   };
 
-
+  // Chrono qui démarre dès que le joueur tape la première lettre, et s'arrête à la fin du texte
   useEffect(() => {
     if (status === 'playing') {
       const chrono = setInterval(() => {
@@ -98,8 +102,6 @@ function App() {
       return () => clearInterval(chrono);
     }
   }, [status]);
-
-
 
   // Decompte des caractères corrects
   const correctCharsCount = userInput.split('').filter((char, index) => {
@@ -117,7 +119,7 @@ function App() {
     ? Math.round((correctCharsCount / 5) / timeInMinutes) 
     : 0;
 
-  // Bip du loser
+  // Bip du loser ! Boooouuuh, loser !
   const playBip = () => {
     if (isMuted) return;
 
@@ -147,6 +149,7 @@ function App() {
     }
   }, [status, wpm, highScore]);
 
+  // Affichage de l'interface
   return (
     <div className={`app-container ${previewTheme || theme}`}>
         <header className="game-header">
